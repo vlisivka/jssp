@@ -1,0 +1,10 @@
+
+Project file: Main project file, which tells, which data files to use, which files to create, which template files to use for them.
+
+IOC: template should declare, which templates it needs, container should search these templates and their dependencies in classpath.
+
+Container: contains annotated templates (Guice and annotated strings?)
+
+Template engine: JSSP or StringTemplate?
+
+Support .d-dir for everything.
