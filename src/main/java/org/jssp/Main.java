@@ -1,6 +1,6 @@
 package org.jssp;
 
-public class JSSPRunner {
+public class Main {
 
     /**
      * @param args

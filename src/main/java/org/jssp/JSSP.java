@@ -47,8 +47,7 @@ public class JSSP {
     /**
      * Print data to stream.
      */
-    public void printToStream(Writer out, Scriptable scope, Scriptable params)
-	    throws IOException {
+    public void printToStream(Writer out, Scriptable scope, Scriptable params) throws IOException {
 	PrintWriter os = new PrintWriter(out);
 	try {
 	    try {
@@ -63,8 +62,7 @@ public class JSSP {
 		evaluateJS(os, scope, params);
 	    } catch (EcmaError e1) {
 		os.println("<b>" + e1 + "</b>");
-		System.err.println(e1.getLocalizedMessage() + " in line "
-			+ e1.getLineNumber() + " in "
+		System.err.println(e1.getLocalizedMessage() + " in line " + e1.getLineNumber() + " in "
 			+ inputSource.getResourceName());
 		throw e1;
 	    } catch (Throwable e) {
@@ -78,8 +76,7 @@ public class JSSP {
 	}
     }
 
-    public void printToStream(OutputStream out, Scriptable scope,
-	    Scriptable params) throws IOException {
+    public void printToStream(OutputStream out, Scriptable scope, Scriptable params) throws IOException {
 	printToStream(new OutputStreamWriter(out), scope, params);
     }
 
@@ -87,8 +84,7 @@ public class JSSP {
 	Context cx = Context.enter();
 	try {
 	    BufferedReader in = new BufferedReader(new InputStreamReader(is));
-	    StringBuffer js = new StringBuffer(
-		    "function anonymous(out,params){with(params){out.print(\"");
+	    StringBuffer js = new StringBuffer("function anonymous(out,params){with(params){out.print(\"");
 	    boolean flag[] = { false };
 	    for (; in.ready();) {
 		String line = in.readLine();
@@ -97,17 +93,14 @@ public class JSSP {
 	    }
 	    js.append("\");}}");
 
-	    /* Rhino1.5r1 */cx.setCompileFunctionsWithDynamicScope(true);
-	    function = cx.compileFunction(scope, js.toString(), inputSource
-		    .getResourceName(), 1, null);
+	    cx.setLanguageVersion(Context.VERSION_1_8);
+	    function = cx.compileFunction(scope, js.toString(), inputSource.getResourceName(), 1, null);
 	} catch (EcmaError e) {
-	    System.err.println(e.getLocalizedMessage() + " in line "
-		    + e.getLineNumber() + " in "
-		    + inputSource.getResourceName());
+	    System.err.println(
+		    e.getLocalizedMessage() + " in line " + e.getLineNumber() + " in " + inputSource.getResourceName());
 
-	    throw new RuntimeException(e.getLocalizedMessage() + " in line "
-		    + e.getLineNumber() + " in "
-		    + inputSource.getResourceName());
+	    throw new RuntimeException(
+		    e.getLocalizedMessage() + " in line " + e.getLineNumber() + " in " + inputSource.getResourceName());
 	} catch (Exception e) {
 	    e.printStackTrace(System.err);
 	    throw new RuntimeException("" + e);
@@ -173,12 +166,11 @@ public class JSSP {
 	return result.toString();
     }
 
-    private void evaluateJS(PrintWriter out, Scriptable scope, Scriptable params)
-	    throws Exception {
+    private void evaluateJS(PrintWriter out, Scriptable scope, Scriptable params) throws Exception {
 	if (function != null) {
 	    Context cx = Context.enter();
 	    try {
-		/* Rhino1.5r1 */cx.setCompileFunctionsWithDynamicScope(true);
+		cx.setLanguageVersion(Context.VERSION_1_8);
 		function.call(cx, scope, scope, new Object[] { out, params });
 	    } finally {
 		Context.exit();

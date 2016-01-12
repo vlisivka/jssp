@@ -2,12 +2,14 @@ package org.jssp;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 /**
- *	Abstract source
+ * Abstract source
  */
-public interface InputSource
-{
-  public String getResourceName();
-  public InputStream getInputStream() throws IOException;
-  public boolean isChangedAfterLastReading();
+public interface InputSource {
+    public String getResourceName();
+
+    public InputStream getInputStream() throws IOException;
+
+    public boolean isChangedAfterLastReading();
 }
