@@ -1,0 +1,3 @@
+#!/bin/bash
+echo 'Open browser at "http://127.0.0.1:8080/jssp/".'
+exec mvn jetty:run

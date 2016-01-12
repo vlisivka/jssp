@@ -7,7 +7,7 @@
    version="3.1">
  
   <servlet>
-    <servlet-name>Hello</servlet-name>
+    <servlet-name>jssp</servlet-name>
     <servlet-class>org.jssp.Main</servlet-class>
   </servlet>
   <servlet-mapping>
